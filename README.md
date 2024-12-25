@@ -1,4 +1,4 @@
-# Group Members
+# Title: Student Management System
 
 | Name                   | ID            | Section    |
 |------------------------|---------------|------------|
