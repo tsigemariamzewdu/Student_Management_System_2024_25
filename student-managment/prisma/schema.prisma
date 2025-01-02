@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Admin
+  Student
+}
+
+enum Department {
+  SoftwareEngineering
+  ElectricalEngineering
+  MechanicalEngineering
+  CivilEngineering
+  ChemicalEngineering
+}
+
+model Course {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique
+  code               String               @unique
+  department         Department
+  year               Int
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  students           Student[]            @relation("courseRegistration")
+  courseRegistrations CourseRegistration[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  email     String   @unique
+  password  String
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  admin     Admin?
+  student   Student?
+}
+
+model Student {
+  id                 Int                  @id @default(autoincrement())
+  userId             Int                  @unique
+  year               Int
+  department         Department
+  user               User                 @relation(fields: [userId], references: [id])
+  courses            Course[]             @relation("courseRegistration")
+  courseRegistrations CourseRegistration[]
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CourseRegistration {
+  id        Int      @id @default(autoincrement())
+  studentId Int
+  courseId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  student   Student   @relation(fields: [studentId], references: [id])
+  course    Course    @relation(fields: [courseId], references: [id])
+  @@unique([studentId, courseId])
+}
