@@ -1,23 +1,27 @@
-import { IsEmail,IsString,IsEnum, IsNotEmpty,MinLength,IsOptional } from "class-validator";
+import { IsEmail,IsString,IsEnum, IsNotEmpty,IsNumber } from "class-validator";
+import { Department, Role } from "@prisma/client";
 
 export class singupDto{
     @IsString()
     @IsNotEmpty()
-    name:string;
-
+    name: string;
+  
     @IsEmail()
-    @IsNotEmpty()
-    email:string;
-
-
-    @MinLength(6)
+    email: string;
+  
     @IsString()
     @IsNotEmpty()
-    password:string
-
+    password: string;
+  
+    
     @IsNotEmpty()
-    role:string;
-
+    role: Role;
+  
+    @IsNumber()
+    year: number;
+  
+    @IsString()
+    department: Department;
     
 
 
