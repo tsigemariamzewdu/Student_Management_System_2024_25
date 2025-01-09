@@ -110,7 +110,7 @@ function register(body) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    BASE_URL = "http://127.0.0.1:4000";
+                    BASE_URL = "http://localhost:4000";
                     console.log("api called");
                     return [4 /*yield*/, fetch(BASE_URL + "/auth/register", {
                             method: "POST",

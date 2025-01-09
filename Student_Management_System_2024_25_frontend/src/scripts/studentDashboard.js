@@ -35,61 +35,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-//login user fields
-var loginEmailField = document.getElementById("email");
-var loginPasswordField = document.getElementById("password");
-var loginButton = document.getElementById("login-btn");
-loginButton.addEventListener("click", function () {
-    var email = loginEmailField.value;
-    var password = loginPasswordField.value;
-    var response = login({ email: email, password: password });
-    console.log(response);
+document.addEventListener("DOMContentLoaded", function () {
+    var logoutButton = document.getElementById("logout");
+    if (logoutButton) {
+        logoutButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('studentId');
+                localStorage.removeItem('updatedStudent');
+                localStorage.removeItem('userName');
+                window.location.href = 'index.html';
+                return [2 /*return*/];
+            });
+        }); });
+    }
 });
-var login = function (credentials) { return __awaiter(_this, void 0, void 0, function () {
-    var BASE_URL, response, responseJson, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                BASE_URL = "http://localhost:4000";
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 4, , 5]);
-                console.log("logging user in");
-                return [4 /*yield*/, fetch(BASE_URL + "/auth/login", {
-                        method: "POST",
-                        headers: {
-                            "Content-type": "application/json",
-                        },
-                        body: JSON.stringify(credentials),
-                    })];
-            case 2:
-                response = _a.sent();
-                return [4 /*yield*/, response.json()];
-            case 3:
-                responseJson = _a.sent();
-                // Check if the accessToken is present
-                if (responseJson.role == "admin") {
-                    window.location.href = "adminDashboard.html";
-                    return [2 /*return*/];
-                }
-                if (responseJson) {
-                    // Store the accessToken in localStorage
-                    localStorage.setItem("accessToken", responseJson.accessToken);
-                    localStorage.setItem("userName", responseJson.name);
-                    localStorage.setItem("userId", responseJson.id.toString());
-                    localStorage.setItem("studentId", responseJson.studnetId.toString());
-                    console.log("Access token saved to localStorage");
-                    window.location.href = "studnetDashboard.html";
-                }
-                else {
-                    console.error("Login failed: No access token received");
-                }
-                return [2 /*return*/, responseJson];
-            case 4:
-                error_1 = _a.sent();
-                console.error("Error during login:", error_1);
-                return [2 /*return*/, error_1];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); };
