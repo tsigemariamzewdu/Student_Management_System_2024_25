@@ -11,22 +11,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const signup_dto_1 = require("./dto/signup.dto");
+const express_1 = require("express");
 const login_dto_1 = require("./dto/login.dto");
+const student_service_1 = require("../student/student.service");
 let AuthController = class AuthController {
-    constructor(authService) {
+    constructor(authService, studentService) {
         this.authService = authService;
+        this.studentService = studentService;
     }
     async register(registerDto, res) {
+        const { name, email, password, role, year, department } = registerDto;
         try {
-            const result = await this.authService.register(registerDto);
+            const newUser = await this.authService.register(registerDto);
+            let student = null;
+            if (role === 'Student') {
+                student = await this.studentService.findStudentByUserId(newUser.id);
+                if (student) {
+                    return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                        message: `student with this user ID is already registerd`
+                    });
+                }
+                student = await this.studentService.createStudent(registerDto, newUser.id);
+            }
             return res.status(common_1.HttpStatus.CREATED).json({
                 message: 'Registration successful',
-                data: result,
+                data: {
+                    user: newUser,
+                    student: student
+                },
             });
         }
         catch (error) {
@@ -57,7 +75,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [signup_dto_1.singupDto, Object]),
+    __metadata("design:paramtypes", [signup_dto_1.singupDto, typeof (_a = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _a : Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
@@ -65,11 +83,12 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [login_dto_1.LoginDto, Object]),
+    __metadata("design:paramtypes", [login_dto_1.LoginDto, typeof (_b = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _b : Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        student_service_1.StudentService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

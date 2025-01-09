@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.singupDto = void 0;
 const class_validator_1 = require("class-validator");
@@ -31,7 +32,7 @@ __decorate([
 ], singupDto.prototype, "password", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
+    __metadata("design:type", typeof (_a = typeof client_1.Role !== "undefined" && client_1.Role) === "function" ? _a : Object)
 ], singupDto.prototype, "role", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
@@ -39,6 +40,6 @@ __decorate([
 ], singupDto.prototype, "year", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", typeof (_b = typeof client_1.Department !== "undefined" && client_1.Department) === "function" ? _b : Object)
 ], singupDto.prototype, "department", void 0);
 //# sourceMappingURL=signup.dto.js.map
