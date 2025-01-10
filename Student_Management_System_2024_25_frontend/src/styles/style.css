@@ -1,23 +1,28 @@
-.about-us {
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.event-item, .news-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 60px;
-  background: #e9ffee;
-  width: 100%;
-  padding: 30px;
-  margin: 0;
+  margin-bottom: 20px;
 }
-.image-container {
-  width: 40%;
-  overflow: hidden;
+
+.event-item img, .news-item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
 }
-.image-container img {
-  width: 100%;
+
+.content-box {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.about-description {
-  width: 50%;
-}
-h2 {
-  text-align: center;
+
+/* Add margin to push the upcoming events and news sections down */
+.content-box {
+  margin-top: 30px;
 }
