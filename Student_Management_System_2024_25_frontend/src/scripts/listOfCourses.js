@@ -75,6 +75,7 @@ var updateCourse = function (courseId) {
     // Redirect to the update form with the course data
     console.log("Redirecting to update course ".concat(courseId));
     window.location.href = "updateCourse.html";
+    localStorage.setItem("courseId", courseId.toString());
 };
 // Handle delete course action
 var deleteCourse = function (courseId) { return __awaiter(_this, void 0, void 0, function () {

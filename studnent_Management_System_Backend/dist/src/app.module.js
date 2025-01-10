@@ -18,14 +18,16 @@ const prisma_module_1 = require("../prisma/prisma.module");
 const jwt_1 = require("@nestjs/jwt");
 const courses_module_1 = require("./courses/courses.module");
 const courses_service_1 = require("./courses/courses.service");
+const admin_module_1 = require("./Admin/admin.module");
+const admin_service_1 = require("./Admin/admin.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [auth_module_1.AuthModule, student_module_1.StudentModule, prisma_module_1.PrismaModule, jwt_1.JwtModule, courses_module_1.CoursesModule],
+        imports: [auth_module_1.AuthModule, student_module_1.StudentModule, prisma_module_1.PrismaModule, jwt_1.JwtModule, courses_module_1.CoursesModule, admin_module_1.AdminModule],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, auth_service_1.AuthService, student_service_1.StudentService, jwt_1.JwtService, courses_service_1.CoursesService],
+        providers: [app_service_1.AppService, auth_service_1.AuthService, student_service_1.StudentService, jwt_1.JwtService, courses_service_1.CoursesService, admin_service_1.AdminService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
